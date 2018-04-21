@@ -15,7 +15,7 @@ EPISODES = 1000
 class DQNAgent:
     def __init__(self, state_size, action_size):
         self.render = True
-        self.load_model = False
+        self.load_model = True
         self.state_size = state_size
         self.action_size = action_size
         self.memory = deque(maxlen=2000)    # deque是双端队列，其元素可以从两端弹出
@@ -30,7 +30,7 @@ class DQNAgent:
         self.target_model = self.build_model()
         self.update_target_model()
         if self.load_model:
-            self.model.load_weights("./save/cartpole-dqn.h5")
+            self.model.load_weights("./save/cartpole_dqn.h5")
 
     def build_model(self):
         """
@@ -152,7 +152,7 @@ if __name__ == "__main__":
 
                 # if the mean of scores of last 10 episode is bigger than 490
                 # stop training
-                if np.mean(scores[-min(10, len(scores)):]) > 490:
+                if np.mean(scores[-min(10, len(scores)):]) > 1000:
                     sys.exit()
 
         # save the model
