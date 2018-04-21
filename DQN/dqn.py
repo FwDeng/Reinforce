@@ -53,12 +53,6 @@ class DQNAgent:
         """
         self.target_model.set_weights(self.model.get_weights())
 
-    def remember(self, state, action, reward, next_state, done):
-        """
-        将序列添加到Replay Memory。注意memory是双端队列。
-        """
-        self.memory.append((state, action, reward, next_state, done))
-
     def get_action(self, state):
         """
         采用epsilon-greedy策略
