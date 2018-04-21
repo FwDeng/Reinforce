@@ -48,6 +48,9 @@ class DQNAgent:
         return model
 
     def update_target_model(self):
+        """
+        将目标网络的权值设置为和行为网络相同
+        """
         self.target_model.set_weights(self.model.get_weights())
 
     def remember(self, state, action, reward, next_state, done):
@@ -87,15 +90,15 @@ class DQNAgent:
         action, reward, done = [], [], []
 
         for i in range(self.batch_size):
-            update_input[i] = mini_batch[i][0]
-            action.append(mini_batch[i][1])
+            update_input[i] = mini_batch[i][0]  # State
+            action.append(mini_batch[i][1])  # 0 or 1
             reward.append(mini_batch[i][2])
-            update_target[i] = mini_batch[i][3]
+            update_target[i] = mini_batch[i][3]  # Next state
             done.append(mini_batch[i][4])
-
+        # action-values of behavior
         target = self.model.predict(update_input)
+        # action-values of target
         target_val = self.target_model.predict(update_target)
-
         for i in range(self.batch_size):
             if done[i]:
                 target[i][action[i]] = reward[i]
