@@ -85,7 +85,7 @@ def train_model(self):
                    epochs=1, verbose=0)
 ```
 
-## 主程序
+### 主程序
 使用`CartPole-v1`训练环境，设置最大训练Episode数。每一个Episode，重置训练环境。在没有到达终止状态（失去平衡）时，选择并执行动作，将(S, A, R, S')序列写入Memory，并训练模型。当到达终止状态时，更新目标网络，输出Episode的基本信息。每50个Episode存储一次网络权重。
 ```python
 if __name__ == "__main__":
